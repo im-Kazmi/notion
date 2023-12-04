@@ -3,7 +3,6 @@
 import { UserButton, useSession, useUser } from "@clerk/nextjs";
 
 import React from "react";
-import Skeleton from "../skeleton";
 
 const SidebarUser = () => {
   const { user } = useUser();
