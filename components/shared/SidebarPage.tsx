@@ -1,13 +1,13 @@
 "use client";
-import { addPage } from "@/lib/actions/page.action";
-import React, { useState } from "react";
+import { addPage, deletePage, duplicatePage } from "@/lib/actions/page.action";
+import React, { useRef, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa6";
 import { MdOutlineChevronRight } from "react-icons/md";
 import { IoChevronDownOutline } from "react-icons/io5";
 import { usePageContext } from "@/context/pageContext";
 import Image from "next/image";
-import PageOptionsDropdown from "../page/PageOptionsDropdown";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,7 +21,7 @@ const SidebarPage = ({ page, id }: { page: any; id: any }) => {
   const [isParentOpen, setIsParentOpen] = useState(false);
   const [isOptionsVisible, setisOptionsVisible] = useState(false);
   const { currentPage, setCurrentPage }: any = usePageContext();
-
+  const pageTitleRef = useRef(null);
   const handleCreatePage = async (parentId: string | null) => {
     try {
       const page = await addPage({
@@ -35,7 +35,7 @@ const SidebarPage = ({ page, id }: { page: any; id: any }) => {
       console.error(error);
     }
   };
-  console.log(currentPage);
+
   return (
     <div key={id} className=" flex flex-col">
       <div
@@ -68,7 +68,11 @@ const SidebarPage = ({ page, id }: { page: any; id: any }) => {
               className="my-auto"
             />
           </span>
-          <h1 className="text-sm">{page.title}</h1>
+          <input
+            className="text-sm border-none outline-none"
+            ref={pageTitleRef}
+            value={page.title}
+          />
         </div>
         <div className={` self-end ml-auto  gap-2 flex text-neutral-500`}>
           <DropdownMenu className=" flex w-full h-full  ">
@@ -83,9 +87,27 @@ const SidebarPage = ({ page, id }: { page: any; id: any }) => {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="">
               <DropdownMenuGroup>
-                <DropdownMenuItem>Delete</DropdownMenuItem>
-                <DropdownMenuItem>Rename</DropdownMenuItem>
-                <DropdownMenuItem>Duplicate</DropdownMenuItem>
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={() => deletePage({ id: page._id })}
+                >
+                  Delete
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={pageTitleRef?.current?.click()}
+                >
+                  Rename
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={() => {
+                    const duplicatedPage = duplicatePage(page._id);
+                    setCurrentPage(duplicatedPage);
+                  }}
+                >
+                  Duplicate
+                </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
             </DropdownMenuContent>

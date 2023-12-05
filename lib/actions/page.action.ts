@@ -1,5 +1,6 @@
 "use server";
 
+import page from "@/app/(auth)/sign-in/[[...sign-in]]/page";
 import Page from "@/models/page.model";
 import connectToDatabase from "@/utils/connectDb";
 import { auth } from "@clerk/nextjs";
@@ -98,4 +99,33 @@ export async function editPage({
   } catch (error) {
     console.log(error);
   }
+}
+
+export async function deletePage({ id }: { id: string }) {
+  try {
+    await connectToDatabase();
+    const page = await Page.findByIdAndDelete(id);
+
+    revalidatePath("/");
+    return page;
+  } catch (error) {}
+}
+export async function duplicatePage(id: string) {
+  try {
+    await connectToDatabase();
+    const page = await Page.findById(id);
+
+    const duplicatePage = await Page.create({
+      title: page.title,
+      icon: page.icon,
+      content: page.content,
+      cover: page.cover,
+      tags: page.tags,
+      author: page.author,
+    });
+
+    console.log(duplicatePage);
+    revalidatePath("/");
+    return duplicatePage;
+  } catch (error) {}
 }
