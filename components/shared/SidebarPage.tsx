@@ -7,7 +7,7 @@ import { MdOutlineChevronRight } from "react-icons/md";
 import { IoChevronDownOutline } from "react-icons/io5";
 import { usePageContext } from "@/context/pageContext";
 import Image from "next/image";
-
+import { RiDraggable } from "react-icons/ri";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -43,6 +43,9 @@ const SidebarPage = ({ page, id }: { page: any; id: any }) => {
         onMouseLeave={() => setisOptionsVisible(false)}
         className="text-sm w-full hover:bg-neutral-200 transition-all hover:scale-105 flex gap-3 py-[2px] px-5 text-neutral-600 cursor-pointer"
       >
+        <span className="">
+          <RiDraggable />
+        </span>
         {!isParentOpen ? (
           <span
             className=" text-[14px] font-bold transition-transform"
@@ -69,8 +72,7 @@ const SidebarPage = ({ page, id }: { page: any; id: any }) => {
             />
           </span>
           <input
-            className="text-sm border-none outline-none bg-transparent cursor-pointer focus:cursor-text"
-            ref={pageTitleRef}
+            className="text-sm border-none outline-none bg-transparent cursor-pointer disabled focus:cursor-text"
             value={page.title}
           />
         </div>
@@ -93,11 +95,8 @@ const SidebarPage = ({ page, id }: { page: any; id: any }) => {
                 >
                   Delete
                 </DropdownMenuItem>
-                <DropdownMenuItem
-                  className="cursor-pointer"
-                  onClick={() => pageTitleRef?.current?.focus()}
-                >
-                  Rename
+                <DropdownMenuItem className="cursor-pointer">
+                  <span>Rename</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   className="cursor-pointer"
