@@ -7,22 +7,13 @@ import { MdOutlineChevronRight } from "react-icons/md";
 import { IoChevronDownOutline } from "react-icons/io5";
 import { usePageContext } from "@/context/pageContext";
 import Image from "next/image";
-import PageOptionsDropdown from "../page/PageOptionsDropdown";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
-const SidebarPage = ({ page, id }: { page: any; id: any }) => {
+const SidebarTodoPage = ({ page, id }: { page: any; id: any }) => {
   const [isParentOpen, setIsParentOpen] = useState(false);
   const [isOptionsVisible, setisOptionsVisible] = useState(false);
   const { currentPage, setCurrentPage }: any = usePageContext();
 
-  const handleCreatePage = async (parentId: string | null) => {
+  const handleCreateTodoPage = async (parentId: string | null) => {
     try {
       const page = await addPage({
         path: "/",
@@ -35,17 +26,18 @@ const SidebarPage = ({ page, id }: { page: any; id: any }) => {
       console.error(error);
     }
   };
-  console.log(currentPage);
+
   return (
     <div key={id} className=" flex flex-col">
       <div
+        onClick={() => setCurrentPage(page)}
         onMouseEnter={() => setisOptionsVisible(true)}
         onMouseLeave={() => setisOptionsVisible(false)}
         className="text-sm w-full hover:bg-neutral-200 transition-all hover:scale-105 flex gap-3 py-[2px] px-5 text-neutral-600 cursor-pointer"
       >
         {!isParentOpen ? (
           <span
-            className=" text-[14px] font-bold transition-transform"
+            className=" text-[14px] font-bold"
             onClick={() => setIsParentOpen(true)}
           >
             <MdOutlineChevronRight />
@@ -58,43 +50,27 @@ const SidebarPage = ({ page, id }: { page: any; id: any }) => {
             <IoChevronDownOutline />
           </span>
         )}
-        <div onClick={() => setCurrentPage(page)} className=" flex gap-3">
-          <span>
-            <Image
-              src={page.icon}
-              width={15}
-              height={15}
-              alt=""
-              className="my-auto"
-            />
-          </span>
-          <h1 className="text-sm">{page.title}</h1>
-        </div>
+        <span>
+          <Image
+            src={page.icon}
+            width={15}
+            height={15}
+            alt=""
+            className="my-auto"
+          />
+        </span>
+        <h1 className="text-sm">{page.title}</h1>
         <div
           className={` self-end ml-auto  gap-2 flex text-neutral-500 ${
             isOptionsVisible ? "" : " hidden"
           }`}
         >
-          <DropdownMenu className=" flex w-full h-full bg-cyan-300 ">
-            <DropdownMenuTrigger>
-              <span className=" hover:bg-neutral-300 rounded-sm cursor-pointer ">
-                <BsThreeDots />
-              </span>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-fit h-full m-auto ">
-              <DropdownMenuGroup>
-                <DropdownMenuItem>Delete</DropdownMenuItem>
-                <DropdownMenuItem>Rename</DropdownMenuItem>
-                <DropdownMenuItem>Duplicate</DropdownMenuItem>
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <span className=" hover:bg-neutral-300 rounded-sm">
+            <BsThreeDots />
+          </span>
           <span
             className=" hover:bg-neutral-300 rounded-sm"
-            onClick={() => {
-              handleCreatePage(page._id), setIsParentOpen(true);
-            }}
+            onClick={() => handleCreateTodoPage(page._id)}
           >
             <FaPlus />
           </span>
@@ -106,7 +82,7 @@ const SidebarPage = ({ page, id }: { page: any; id: any }) => {
         page.childPages.map((childPage: any) => {
           return (
             <div key={childPage._id} className="ml-3">
-              <SidebarPage page={childPage} id={childPage._id} />
+              <SidebarTodoPage page={childPage} id={childPage._id} />
             </div>
           );
         })}
@@ -114,4 +90,4 @@ const SidebarPage = ({ page, id }: { page: any; id: any }) => {
   );
 };
 
-export default SidebarPage;
+export default SidebarTodoPage;
