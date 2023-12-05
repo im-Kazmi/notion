@@ -21,7 +21,7 @@ const SidebarPage = ({ page, id }: { page: any; id: any }) => {
   const [isParentOpen, setIsParentOpen] = useState(false);
   const [isOptionsVisible, setisOptionsVisible] = useState(false);
   const { currentPage, setCurrentPage }: any = usePageContext();
-  const pageTitleRef = useRef(null);
+  const pageTitleRef = useRef<HTMLInputElement>(null);
   const handleCreatePage = async (parentId: string | null) => {
     try {
       const page = await addPage({
@@ -69,13 +69,13 @@ const SidebarPage = ({ page, id }: { page: any; id: any }) => {
             />
           </span>
           <input
-            className="text-sm border-none outline-none"
+            className="text-sm border-none outline-none bg-transparent cursor-pointer focus:cursor-text"
             ref={pageTitleRef}
             value={page.title}
           />
         </div>
         <div className={` self-end ml-auto  gap-2 flex text-neutral-500`}>
-          <DropdownMenu className=" flex w-full h-full  ">
+          <DropdownMenu>
             <DropdownMenuTrigger className="outline-none">
               <span
                 className={`outline-none hover:bg-neutral-300 rounded-sm cursor-pointer  ${
@@ -95,7 +95,7 @@ const SidebarPage = ({ page, id }: { page: any; id: any }) => {
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   className="cursor-pointer"
-                  onClick={pageTitleRef?.current?.click()}
+                  onClick={() => pageTitleRef?.current?.focus()}
                 >
                   Rename
                 </DropdownMenuItem>
