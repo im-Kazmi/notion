@@ -70,18 +70,18 @@ const SidebarPage = ({ page, id }: { page: any; id: any }) => {
           </span>
           <h1 className="text-sm">{page.title}</h1>
         </div>
-        <div
-          className={` self-end ml-auto  gap-2 flex text-neutral-500 ${
-            isOptionsVisible ? "" : " hidden"
-          }`}
-        >
-          <DropdownMenu className=" flex w-full h-full bg-cyan-300 ">
-            <DropdownMenuTrigger>
-              <span className=" hover:bg-neutral-300 rounded-sm cursor-pointer ">
+        <div className={` self-end ml-auto  gap-2 flex text-neutral-500`}>
+          <DropdownMenu className=" flex w-full h-full  ">
+            <DropdownMenuTrigger className="outline-none">
+              <span
+                className={`outline-none hover:bg-neutral-300 rounded-sm cursor-pointer  ${
+                  isOptionsVisible ? "" : "hidden"
+                }`}
+              >
                 <BsThreeDots />
               </span>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-fit h-full m-auto ">
+            <DropdownMenuContent className="">
               <DropdownMenuGroup>
                 <DropdownMenuItem>Delete</DropdownMenuItem>
                 <DropdownMenuItem>Rename</DropdownMenuItem>
@@ -91,7 +91,9 @@ const SidebarPage = ({ page, id }: { page: any; id: any }) => {
             </DropdownMenuContent>
           </DropdownMenu>
           <span
-            className=" hover:bg-neutral-300 rounded-sm"
+            className={` hover:bg-neutral-300 rounded-sm ${
+              isOptionsVisible ? "" : "hidden "
+            }`}
             onClick={() => {
               handleCreatePage(page._id), setIsParentOpen(true);
             }}
