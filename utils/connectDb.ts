@@ -6,6 +6,7 @@ async function connectToDatabase() {
 
     if (isConnected) {
       console.log("Connected");
+      return;
     }
 
     await connect(process.env.DATABASE_URL as string);
