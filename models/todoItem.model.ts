@@ -1,4 +1,4 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 export interface ITodoItem extends Document {
   text: string;
@@ -7,6 +7,10 @@ export interface ITodoItem extends Document {
 
 const todoItemSchema = new Schema(
   {
+    todoId: {
+      type: Schema.Types.ObjectId,
+      ref: "Todo",
+    },
     text: {
       type: String,
       required: true,
@@ -20,6 +24,6 @@ const todoItemSchema = new Schema(
   { timestamps: true }
 );
 
-const TodoItem = model<ITodoItem>("TodoItem", todoItemSchema);
+const TodoItem = models?.TodoItem || model("TodoItem", todoItemSchema);
 
 export default TodoItem;

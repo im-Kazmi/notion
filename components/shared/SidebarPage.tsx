@@ -17,11 +17,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const SidebarPage = ({ page, id }: { page: any; id: any }) => {
+const SidebarPage = ({ page: pageFromProps, id }: { page: any; id: any }) => {
+  const page = JSON.parse(pageFromProps);
   const [isParentOpen, setIsParentOpen] = useState(false);
   const [isOptionsVisible, setisOptionsVisible] = useState(false);
-  const { currentPage, setCurrentPage }: any = usePageContext();
-  const pageTitleRef = useRef<HTMLInputElement>(null);
+  const { currentPage, setCurrentPage, setCurrentTodo }: any = usePageContext();
   const handleCreatePage = async (parentId: string | null) => {
     try {
       const page = await addPage({
@@ -61,7 +61,13 @@ const SidebarPage = ({ page, id }: { page: any; id: any }) => {
             <IoChevronDownOutline />
           </span>
         )}
-        <div onClick={() => setCurrentPage(page)} className=" flex gap-3">
+        <div
+          onClick={() => {
+            setCurrentPage(page);
+            setCurrentTodo(null);
+          }}
+          className=" flex gap-3"
+        >
           <span>
             <Image
               src={page.icon}
@@ -72,7 +78,7 @@ const SidebarPage = ({ page, id }: { page: any; id: any }) => {
             />
           </span>
           <input
-            className="text-sm border-none outline-none bg-transparent cursor-pointer disabled focus:cursor-text"
+            className="text-sm border-none outline-none bg-transparent cursor-pointer disabled max-w-fit focus:cursor-text"
             value={page.title}
           />
         </div>

@@ -15,7 +15,7 @@ const todoSchema = new Schema(
     title: {
       type: String,
       required: true,
-      default: "untitled",
+      default: "my-todos",
     },
     icon: {
       type: String,
@@ -24,16 +24,6 @@ const todoSchema = new Schema(
     cover: {
       type: String,
     },
-    parentTodo: {
-      type: Schema.Types.ObjectId,
-      ref: "Todo",
-    },
-    childTodos: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Todo",
-      },
-    ],
     author: String,
     tags: [
       {

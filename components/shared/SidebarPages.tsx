@@ -12,7 +12,13 @@ const SidebarPages = ({ pages: pagesFromProps }: any) => {
       {pages &&
         pages.length > 0 &&
         pages.map((page: any) => {
-          return <SidebarPage page={page} key={page._id} id={page._id} />;
+          return (
+            <SidebarPage
+              page={JSON.stringify(page)}
+              key={page._id}
+              id={page._id}
+            />
+          );
         })}
     </div>
   );

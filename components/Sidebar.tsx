@@ -15,8 +15,9 @@ import SidebarPages from "./shared/SidebarPages";
 import SidebarUser from "./shared/UserButton";
 import { getAllPages } from "@/lib/actions/page.action";
 import { useSidebarContext } from "@/context/sidebarContext";
+import TodoPages from "./shared/TodoPages";
 
-const Sidebar = ({ pages }: any) => {
+const Sidebar = ({ pages, todoPages }: any) => {
   const { handleMouseDown }: any = useSidebarContext();
   return (
     <div
@@ -47,7 +48,8 @@ const Sidebar = ({ pages }: any) => {
         </span>
       </div>
 
-      <SidebarPages pages={JSON.stringify(pages)} />
+      <SidebarPages pages={pages} />
+      <TodoPages todos={todoPages} />
       <AddAPage />
 
       <div className="text-sm flex flex-col gap-1 mt-5">
