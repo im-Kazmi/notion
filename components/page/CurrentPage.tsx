@@ -7,6 +7,11 @@ import EmojiPicker from "emoji-picker-react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.bubble.css";
 import { quill_formats, quill_modules } from "@/constants/quill";
+
+interface User {
+  name: string;
+  image: strin;
+}
 const CurrentPage = () => {
   const { currentPage, setCurrentPage }: any = usePageContext();
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);

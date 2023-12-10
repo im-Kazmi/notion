@@ -38,9 +38,6 @@ export async function getAllPages() {
 
     await connectToDatabase();
 
-    if (!userId) {
-      return;
-    }
     const pages = await Page.find({
       author: userId,
       parentPage: { $exists: false },

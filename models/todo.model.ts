@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
-export interface ITdod extends Document {
+export interface ITodo extends Document {
   title: string;
   icon: string;
   cover?: string;

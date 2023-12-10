@@ -7,6 +7,7 @@ import { ReactNode } from "react";
 
 const layout = async ({ children }: { children: ReactNode }) => {
   const pages = await getAllPages();
+  console.log("pages = ", pages);
   const todoPages = await getAllTodos();
 
   return (

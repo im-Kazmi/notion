@@ -4,7 +4,15 @@ import React, { ReactNode } from "react";
 import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { RiDraggable } from "react-icons/ri";
-function Draggable({ id, children }: { id: any; children: ReactNode }) {
+function Draggable({
+  id,
+  children,
+  className,
+}: {
+  id: any;
+  children: ReactNode;
+  className?: string;
+}) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: id,
   });
@@ -14,9 +22,9 @@ function Draggable({ id, children }: { id: any; children: ReactNode }) {
   };
 
   return (
-    <div className=" flex cursor-pointer gap-2 hover:first:opacity-100">
+    <div className=" flex cursor-pointer gap-2 hover:first:opacity-100 min-w-full">
       <div
-        className=" flex gap-2 first:hover:flex"
+        className={`flex gap-2 first:hover:flex ${className}`}
         ref={setNodeRef}
         style={style}
         {...listeners}

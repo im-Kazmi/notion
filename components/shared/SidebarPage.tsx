@@ -22,6 +22,7 @@ const SidebarPage = ({ page: pageFromProps, id }: { page: any; id: any }) => {
   const [isParentOpen, setIsParentOpen] = useState(false);
   const [isOptionsVisible, setisOptionsVisible] = useState(false);
   const { currentPage, setCurrentPage, setCurrentTodo }: any = usePageContext();
+
   const handleCreatePage = async (parentId: string | null) => {
     try {
       const page = await addPage({
@@ -135,7 +136,10 @@ const SidebarPage = ({ page: pageFromProps, id }: { page: any; id: any }) => {
         page.childPages.map((childPage: any) => {
           return (
             <div key={childPage._id} className="ml-3">
-              <SidebarPage page={childPage} id={childPage._id} />
+              <SidebarPage
+                page={JSON.stringify(childPage)}
+                id={childPage._id}
+              />
             </div>
           );
         })}
