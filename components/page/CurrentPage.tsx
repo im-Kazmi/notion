@@ -10,7 +10,7 @@ import { quill_formats, quill_modules } from "@/constants/quill";
 
 interface User {
   name: string;
-  image: strin;
+  image: string;
 }
 const CurrentPage = () => {
   const { currentPage, setCurrentPage }: any = usePageContext();
